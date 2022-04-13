@@ -15,3 +15,13 @@
 ## Instalar librerías
 ### pip install -r librerias.txt
 
+## Migra el proyecto a la versión de Django más reciente
+### python manage.py makemigrations
+### python manage.py migrate
+
+
+## Hacer una copia de seguridad de la base de datos
+### python manage.py dumpdata > backup.json
+
+## Restaurar la base de datos
+### python manage.py loaddata backup.json

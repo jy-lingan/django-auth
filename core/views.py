@@ -1,4 +1,4 @@
-from core.authentication import create_access_token, create_refresh_token, JWTAuthentication
+from core.authentication import create_access_token, create_refresh_token, JWTAuthentication, decode_refresh_token
 from .models import User
 from rest_framework import exceptions
 #from rest_framework.authentication import get_authorization_header
@@ -52,3 +52,13 @@ class UserAPIView(APIView):
 
     def get(self, request):
         return Response(UserSerializer(request.user).data)
+
+
+class RefreshTokenAPIView(APIView):
+    def post(self, request):
+        refresh_token = request.COOKIES.get('refresh_token')
+        id = decode_refresh_token(refresh_token)
+
+        access_token = create_access_token(id)
+
+        return Response({'token': access_token})
